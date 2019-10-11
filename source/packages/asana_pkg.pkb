@@ -5,6 +5,7 @@ create or replace package body asana_pkg as
     g_authorization constant varchar2(50)  := asana_pkg.get_env_var (p_var_name => 'authorization'); -------------- this is your API Key (very sensitive - keep to yourself)
     g_projects      constant varchar2(50)  := asana_pkg.get_env_var (p_var_name => 'projects'); -------------- this is your API Key (very sensitive - keep to yourself)
     g_workspace     constant varchar2(50)  := asana_pkg.get_env_var (p_var_name => 'workspace'); -------------- this is your API Key (very sensitive - keep to yourself)
+    g_wallet_path   constant varchar2(50)  := asana_pkg.get_env_var (p_var_name => 'wallet_path'); -------------- this is your API Key (very sensitive - keep to yourself)
 
 -- create a task
 function create_task (p_blog_name    in varchar2,
@@ -43,6 +44,7 @@ l_response := apex_web_service.make_rest_request(
         , p_http_method => 'POST'
         , p_parm_name   => l_parm_names 
         , p_parm_value  => l_parm_values  
+        , p_wallet_path => g_wallet_path
     );
     
 logger.log('l_response : ', l_scope, l_response);
